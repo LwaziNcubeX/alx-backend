@@ -23,7 +23,7 @@ class FIFOCache(BaseCaching):
         :param item:
         :return:
         """
-        if key is not None or item is not None:
+        if key is not None and item is not None:
             if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
                 removed_key = self.cache_order.pop(0)
                 del self.cache_data[removed_key]
@@ -38,6 +38,6 @@ class FIFOCache(BaseCaching):
         :param key:
         :return:
         """
-        if key is None or key not in self.cache_data:
+        if key is None and key not in self.cache_data:
             return None
         return self.cache_data[key]
