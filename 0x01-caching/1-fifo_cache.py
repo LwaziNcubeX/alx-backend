@@ -14,7 +14,6 @@ class FIFOCache(BaseCaching):
         Initialize the FIFOCache instance
         """
         super().__init__()
-        self.cache_order = []  # List to store insertion order of keys
 
     def put(self, key, item):
         """
@@ -23,16 +22,16 @@ class FIFOCache(BaseCaching):
         :param item:
         :return:
         """
-        if key is not None and item is not None:
-            if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-                removed_key = self.cache_order.pop(0)
-                del self.cache_data[removed_key]
-                print(f"DISCARD {removed_key}")
 
-            self.cache_data[key] = item
-            self.cache_order.append(key)
-        else:
+        if key is None or item is None:
             return
+
+        if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
+            discarded_key = next(iter(self.cache_data))
+            del self.cache_data[discarded_key]
+            print("DISCARD:", discarded_key)
+
+        self.cache_data[key] = item
 
     def get(self, key):
         """
