@@ -31,6 +31,8 @@ class FIFOCache(BaseCaching):
 
             self.cache_data[key] = item
             self.cache_order.append(key)
+        else:
+            return
 
     def get(self, key):
         """
@@ -38,6 +40,6 @@ class FIFOCache(BaseCaching):
         :param key:
         :return:
         """
-        if key is None and key not in self.cache_data:
+        if key is None or key not in self.cache_data:
             return None
         return self.cache_data[key]
