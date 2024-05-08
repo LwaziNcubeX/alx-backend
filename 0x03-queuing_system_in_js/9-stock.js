@@ -56,3 +56,18 @@ app.get('/reserve_product/:id', async (req, res) => {
   return res.json({ status: 'Reservation confirmed', itemId: req.params.id });
 });
 
+async function getCurrentReservedStockById(id) {
+  const currentStock = await getAsync(`item.${id}`);
+
+  return currentStock ? parseInt(currentStock, 10) : 0;
+}
+
+async function reserveStockById(id, stock) {
+  const currentStock = await getCurrentReservedStockById(id);
+
+  return setAsync(`item.${id}`, currentStock + stock);
+}
+
+app.listen(1245, () => {
+  console.log('Server is running on port 1245');
+});
