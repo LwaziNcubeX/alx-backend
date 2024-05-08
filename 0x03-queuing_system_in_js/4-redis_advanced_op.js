@@ -20,5 +20,8 @@ client.hset('HolbertonSchools', 'Cali', 40, redis.print);
 client.hset('HolbertonSchools', 'Paris', 2, redis.print);
 
 client.hgetall('HolbertonSchools', function(err, reply) {
+    if (err) {
+        console.log('hgetall Error', err);
+    }
     console.log(reply);
 })
